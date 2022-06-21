@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="myForm">
+        <input type="text" name="firstName" id="firstName" placeholder="First Name">
+        <input type="text" name="lastName" id="lastName" placeholder="Last Name">
+        <input type="text" name="email" id="email" placeholder="Email Address">
+        <input type="text" name="phone" id="phone" placeholder="Phone #">
+        <button type="submit" name="submit">I WANT TO LOSE 10 lbs.</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        let apiKey = 'eb4f058265bef0';
+        let ip = '';
+        fetch("https://ipinfo.io/json?token=eb4f058265bef0").then(
+            (response) => response.json()
+        ).then(
+            (jsonResponse) => ip = jsonResponse.ip
+        )
+        console.log(ip);
+        const form = document.getElementById('myForm');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const keys = Object.keys(form)
+            let arrValue = [];
+            keys.forEach((key, index) => {
+                arrValue.push(form[key].value)
+            });
+
+            const url = 'https://lpr.leadcapsule.com/Leads/LeadPost.aspx?CampaignId=FE719A74F41A940996B7545DA063F9D3&IsTest=True&FirstName=' + arrValue[0] + '&LastName=' + arrValue[1] + '&Email=' + arrValue[2] + '&Phone=' + arrValue[3] + '&IPAddress=' + ip;
+            console.log(url);
+
+            fetch(url, {
+                    method: 'POST'
+                })
+                .then(response => response.text())
+                .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+                .then(data => console.log(data));
+        })
+    </script>
+</body>
+
+</html>
