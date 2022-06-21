@@ -21,12 +21,12 @@
 
     <script>
         let apiKey = 'eb4f058265bef0';
-        let ip = '';
-        fetch("https://ipinfo.io/json?token=eb4f058265bef0").then(
-            (response) => response.json()
-        ).then(
-            (jsonResponse) => ip = jsonResponse.ip
-        )
+        let ip = '8.8.8.8';
+        // fetch("https://ipinfo.io/json?token=eb4f058265bef0").then(
+        //     (response) => response.json()
+        // ).then(
+        //     (jsonResponse) => ip = jsonResponse.ip
+        // )
         console.log(ip);
         const form = document.getElementById('myForm');
         form.addEventListener('submit', (event) => {
